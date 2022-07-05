@@ -18,7 +18,7 @@ const DetailsCountry = ({ country, wheater }) => {
       <br/>
       <img src={wheater.current?.weather_icons.join('')} alt={'Temperature icon'} />
       <br/>
-      <b>wind: </b>{wheater.current?.wind_speed} mph direction SSW
+      <b>wind: </b>{wheater.current?.wind_speed} mph direction {wheater.current?.wind_dir}
     </div>
   )
 }
