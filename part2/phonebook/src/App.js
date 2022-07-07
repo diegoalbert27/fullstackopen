@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import FilterPerson from './components/FilterPerson'
+import Notification from './components/Notification'
 import PersonForm from './components/PersonForm'
 import Persons from './components/Persons'
 import { getAll, create, remove, update } from './services/persons'
@@ -9,6 +10,8 @@ const App = () => {
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber ] = useState('')
   const [ newFilter, setNewFilter ] = useState('')
+  const [message, setMessage] = useState(null)
+  const [type, setType] = useState('')
 
   useEffect(() => {
     getAll().then(res => {
@@ -36,8 +39,17 @@ const App = () => {
         update(updatePerson.id, {...updatePerson, number: newNumber})
           .then(res => {
             setPersons(persons.map(person => person.id !== updatePerson.id ? person : res.data))
+            setMessage(`Updated number ${res.data.number} to ${res.data.name}`)
+            setType('success')
+            setTimeout(() => {
+              setMessage(null)
+            }, 3000)
           })
-          .catch(err => console.error(err))
+          .catch(err => {
+            console.error(err)
+            setMessage(`Information of ${updatePerson.name} has already been removed from server`)
+            setType('error')
+          })
       }
 
       return
@@ -53,6 +65,12 @@ const App = () => {
         setPersons(persons.concat(res.data))
         setNewName('')
         setNewNumber('')
+        setMessage(`Added ${res.data.name}`)
+        setType('success')
+        
+        setTimeout(() => {
+          setMessage(null)
+        }, 3000)
       })
       .catch(err => console.error(err))
   }
@@ -81,6 +99,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification type={type} message={message} />
       <FilterPerson  filteringName={filterName} />
       <h2>add a new</h2>
       <PersonForm name={newName} number={newNumber} handleName={handleName} handleNumber={handleNumber} addPerson={addPerson} />

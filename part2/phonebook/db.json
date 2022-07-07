@@ -16,14 +16,19 @@
       "id": 4
     },
     {
-      "name": "Miguel Arbusto",
-      "number": "0412-457-5732",
-      "id": 7
-    },
-    {
       "name": "Diego Hinagas",
       "number": "0412-136-9393",
       "id": 8
+    },
+    {
+      "name": "Gustavo El De Los Pollos Hermanos",
+      "number": "0414-222-1232",
+      "id": 9
+    },
+    {
+      "name": "Canelo Alvarez",
+      "number": "0412-212-3322",
+      "id": 10
     }
   ]
 }
