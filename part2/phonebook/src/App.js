@@ -39,6 +39,8 @@ const App = () => {
         update(updatePerson.id, {...updatePerson, number: newNumber})
           .then(res => {
             setPersons(persons.map(person => person.id !== updatePerson.id ? person : res.data))
+            setNewName('')
+            setNewNumber('')
             setMessage(`Updated number ${res.data.number} to ${res.data.name}`)
             setType('success')
             setTimeout(() => {
@@ -47,8 +49,13 @@ const App = () => {
           })
           .catch(err => {
             console.error(err)
-            setMessage(`Information of ${updatePerson.name} has already been removed from server`)
-            setType('error')
+            if (err.response.status === 404) {
+              setMessage(`Information of ${updatePerson.name} has already been removed from server`)
+              setType('error')
+            } else {
+              setMessage(err.response.data.error)
+              setType('error')
+            }
           })
       }
 
@@ -72,7 +79,11 @@ const App = () => {
           setMessage(null)
         }, 3000)
       })
-      .catch(err => console.error(err))
+      .catch(error => {
+        console.log(error.response.data)
+	      setMessage(error.response.data.error)
+	      setType('error')
+      })
   }
 
   const filterName = (e) => {
@@ -87,7 +98,7 @@ const App = () => {
     if (isConfirm) {
       remove(id)
         .then(res => {
-          if (res.status === 200) {
+          if (res.status === 204) {
             const newPersons = persons.filter(person => person.id !== id)
             setPersons([...newPersons])
           }
