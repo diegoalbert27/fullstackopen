@@ -2,7 +2,7 @@
 
 Soluciones a los ejercicios de [Full Stack Open](https://fullstackopen.com/), el curso online gratuito de desarrollo web full stack con JavaScript de la Universidad de Helsinki.
 
-**Certificado:** [Ver credencial](URL_DEL_CERTIFICADO) · Completado en [MES AÑO]
+**Certificado:** [Ver credencial](https://studies.cs.helsinki.fi/stats/api/certificate/fullstackopen/en/d987a7a3d60e4bbb5903af5da20cff04) · Completado en [2021]
 
 ## Contenido del repositorio
 
